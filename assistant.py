@@ -4,7 +4,7 @@ import speech_recognition as sr
 import webbrowser as wb
 friday=pyttsx3.init()
 voice=friday.getProperty('voices')
-friday.setProperty('voice',voice[0].id)
+friday.setProperty('voice',voice[1].id)
 def speak(audio):
 	print("F.R.I.D.A.Y : "+audio)
 	friday.say(audio)
@@ -12,7 +12,7 @@ def speak(audio):
 speak("Hello sir")
 def time():
 	Time=datetime.datetime.now().strftime("%I: %M:%p")
-	speak(Time)
+	speak("now is: "+Time)
 time()
 def welcome():
 	hour=datetime.datetime.now().hour
@@ -26,7 +26,6 @@ def welcome():
 def command():
 	c=sr.Recognizer()
 	with sr.Microphone() as source:
-		c.pause_threshold=2
 		audio=c.listen(source)
 	try:
 		#query truy van
@@ -55,6 +54,6 @@ if __name__=="__main__":
 			speak(f"Here is your {search} on youtube")
 		elif "time" in query:
 			time()
-		elif "quit" in query:
+		elif "quit" or "bye" in query:
 			speak("Friday is offline, bye boss")
 			quit()
